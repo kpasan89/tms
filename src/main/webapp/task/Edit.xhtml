@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="TaskEditDlg" widgetVar="TaskEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditTaskTitle}">
+            <h:form id="TaskEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{taskController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditTaskLabel_id}" for="id" />
+                        <p:inputText id="id" value="#{taskController.selected.id}" title="#{bundle.EditTaskTitle_id}" />
+                        <p:outputLabel value="#{bundle.EditTaskLabel_name}" for="name" />
+                        <p:inputText id="name" value="#{taskController.selected.name}" title="#{bundle.EditTaskTitle_name}" />
+                        <p:outputLabel value="#{bundle.EditTaskLabel_category}" for="category" />
+                        <p:selectOneMenu id="category" value="#{taskController.selected.category}" >
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{categoryController.itemsAvailableSelectOne}"
+                                           var="categoryItem"
+                                           itemValue="#{categoryItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditTaskLabel_priority}" for="priority" />
+                        <p:inputText id="priority" value="#{taskController.selected.priority}" title="#{bundle.EditTaskTitle_priority}" />
+                        <p:outputLabel value="#{bundle.EditTaskLabel_taskStatus}" for="taskStatus" />
+                        <p:inputText id="taskStatus" value="#{taskController.selected.taskStatus}" title="#{bundle.EditTaskTitle_taskStatus}" />
+                        <p:outputLabel value="#{bundle.EditTaskLabel_completePercent}" for="completePercent" />
+                        <p:inputText id="completePercent" value="#{taskController.selected.completePercent}" title="#{bundle.EditTaskTitle_completePercent}" />
+                        <p:outputLabel value="#{bundle.EditTaskLabel_startDate}" for="startDate" />
+                        <p:calendar id="startDate" pattern="MM/dd/yyyy HH:mm:ss" value="#{taskController.selected.startDate}" title="#{bundle.EditTaskTitle_startDate}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.EditTaskLabel_dueDate}" for="dueDate" />
+                        <p:calendar id="dueDate" pattern="MM/dd/yyyy HH:mm:ss" value="#{taskController.selected.dueDate}" title="#{bundle.EditTaskTitle_dueDate}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.EditTaskLabel_remarks}" for="remarks" />
+                        <p:inputText id="remarks" value="#{taskController.selected.remarks}" title="#{bundle.EditTaskTitle_remarks}" />
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{taskController.update}" value="#{bundle.Save}" update="display,:TaskListForm:datalist,:growl" oncomplete="handleSubmit(args, 'TaskEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="TaskEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>
