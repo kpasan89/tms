@@ -31,7 +31,7 @@ public class UserController implements Serializable {
     private com.mycompany.Facade.UserFacade ejbFacade;
     private List<User> items = null;
     private User selected;
-    
+
     private User loggedPerson;
     private boolean logged;
     private String username;
@@ -49,7 +49,7 @@ public class UserController implements Serializable {
 
     public UserController() {
     }
-    
+
     public String login() {
 
         //Get IP Address---------------------------------
@@ -143,9 +143,56 @@ public class UserController implements Serializable {
 
     public void create() {
         persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("UserCreated"));
+        if (selected != null) {
+            setEmbeddableKeys();
+            try {
+                if (selected.getEmail().trim().matches(".*[,/'#~@\\x5B\\x5D}{+_)(*&^%$£\"!\\|<>]+.*")) {
+                    JsfUtil.addErrorMessage("User name contains with special characters. Please remove special characters");
+                } else if (!userNameAvailable(selected.getEmail())) {
+                    JsfUtil.addErrorMessage("User name already exists. Please enter another username");
+                } else if (!selected.getPassword().equals(selected.getCunfirm_password())) {
+                    JsfUtil.addErrorMessage("Password and Re-entered password are not matching");
+                } else {
+
+                    addPassword = CommonController.makeHash(selected.getPassword());
+                    addCunfirmPassword = CommonController.makeHash(selected.getCunfirm_password());
+
+                    User u = new User();
+                    u.setFirstName(selected.getFirstName());
+
+                    getFacade().create(u);
+                    JsfUtil.addSuccessMessage("Person was successfully created");
+                }
+            } catch (EJBException ex) {
+                String msg = "";
+                Throwable cause = ex.getCause();
+                if (cause != null) {
+                    msg = cause.getLocalizedMessage();
+                }
+                if (msg.length() > 0) {
+                    JsfUtil.addErrorMessage(msg);
+                } else {
+                    JsfUtil.addErrorMessage(ex, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
+                }
+            } catch (Exception ex) {
+                Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, null, ex);
+                JsfUtil.addErrorMessage(ex, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
+            }
+        }
         if (!JsfUtil.isValidationFailed()) {
             items = null;    // Invalidate list of items to trigger re-query.
         }
+    }
+
+    public Boolean userNameAvailable(String email) {
+        Boolean available = true;
+        List<User> allUsers = getFacade().findAll();
+        for (User u : allUsers) {
+            if (email.toLowerCase().equals(u.getEmail())) {
+                available = false;
+            }
+        }
+        return available;
     }
 
     public void update() {

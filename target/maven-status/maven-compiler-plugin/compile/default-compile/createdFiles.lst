@@ -22,6 +22,7 @@ com\mycompany\Entity\Category_.class
 com\mycompany\Entity\Location_.class
 com\mycompany\Enum\Rank.class
 com\mycompany\Enum\UserStatus.class
+com\mycompany\Controller\CommonController.class
 com\mycompany\Entity\Location.class
 com\mycompany\Entity\User.class
 com\mycompany\Facade\CategoryFacade.class
