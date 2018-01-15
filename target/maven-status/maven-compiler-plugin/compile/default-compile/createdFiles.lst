@@ -1,3 +1,4 @@
+com\mycompany\Controller\EnumController.class
 com\mycompany\Facade\LocationFacade.class
 com\mycompany\Enum\Priority.class
 com\mycompany\Controller\UserController$UserControllerConverter.class
