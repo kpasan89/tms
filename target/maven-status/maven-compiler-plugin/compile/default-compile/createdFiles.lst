@@ -2,9 +2,14 @@ com\mycompany\Controller\EnumController.class
 com\mycompany\Facade\LocationFacade.class
 com\mycompany\Enum\Priority.class
 com\mycompany\Controller\UserController$UserControllerConverter.class
+com\mycompany\Controller\UserController$UserConverter.class
+com\mycompany\Controller\TaskUserController.class
+com\mycompany\Entity\TaskUser.class
+com\mycompany\Facade\TaskUserFacade.class
 com\mycompany\Facade\UserFacade.class
 com\mycompany\Controller\util\JsfUtil.class
 com\mycompany\Controller\TaskController.class
+com\mycompany\Controller\TaskUserController$TaskUserControllerConverter.class
 com\mycompany\Facade\AbstractFacade.class
 com\mycompany\Entity\Task.class
 com\mycompany\Facade\TaskFacade.class
@@ -25,6 +30,7 @@ com\mycompany\Enum\Rank.class
 com\mycompany\Enum\UserStatus.class
 com\mycompany\Controller\CommonController.class
 com\mycompany\Entity\Location.class
+com\mycompany\Entity\TaskUser_.class
 com\mycompany\Entity\User.class
 com\mycompany\Facade\CategoryFacade.class
 com\mycompany\Enum\AccountType.class

@@ -12,8 +12,6 @@
             <h:form id="LocationCreateForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{locationController.selected != null}">
-                        <p:outputLabel value="#{bundle.CreateLocationLabel_id}" for="id" />
-                        <p:inputText id="id" value="#{locationController.selected.id}" title="#{bundle.CreateLocationTitle_id}" />
                         <p:outputLabel value="#{bundle.CreateLocationLabel_name}" for="name" />
                         <p:inputText id="name" value="#{locationController.selected.name}" title="#{bundle.CreateLocationTitle_name}" />
                         <p:outputLabel value="#{bundle.CreateLocationLabel_remarks}" for="remarks" />

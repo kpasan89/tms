@@ -12,8 +12,6 @@
             <h:form id="LocationViewForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{locationController.selected != null}">
-                        <h:outputText value="#{bundle.ViewLocationLabel_id}"/>
-                        <h:outputText value="#{locationController.selected.id}" title="#{bundle.ViewLocationTitle_id}"/>
                         <h:outputText value="#{bundle.ViewLocationLabel_name}"/>
                         <h:outputText value="#{locationController.selected.name}" title="#{bundle.ViewLocationTitle_name}"/>
                         <h:outputText value="#{bundle.ViewLocationLabel_remarks}"/>

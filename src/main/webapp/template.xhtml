@@ -15,27 +15,40 @@
 
         <p:growl id="growl" life="3000" />
 
-        <p:layout fullPage="true">
-            <p:layoutUnit position="north" size="65" header="#{bundle.AppName}">
+        <p:layout fullPage="true" rendered="#{userController.logged}">
+            <p:layoutUnit position="north" size="65" header="#{bundle.AppName}" rendered="#{userController.logged}">
                 <h:form id="menuForm">
                     <p:menubar>
                         <p:menuitem value="#{bundle.Home}" outcome="/index.xhtml" icon="ui-icon-home"/>
                         <p:menuitem value="Category" outcome="/category/List.xhtml" />
                         <p:menuitem value="Location" outcome="/location/List.xhtml" />
                         <p:menuitem value="Task" outcome="/task/List.xhtml" />
+                        <p:menuitem value="Task User" outcome="/taskUser/List.xhtml" />
                         <p:menuitem value="User" outcome="/user/List.xhtml" />
                         <p:submenu label="#{bundle.Maintenance}">
                             <p:menuitem value="Category" outcome="/category/List.xhtml" />
                             <p:menuitem value="Location" outcome="/location/List.xhtml" />
                             <p:menuitem value="Task" outcome="/task/List.xhtml" />
+                            <p:menuitem value="Task User" outcome="/taskUser/List.xhtml" />
                             <p:menuitem value="User" outcome="/user/List.xhtml" />
                         </p:submenu>
                     </p:menubar>
+
+
                 </h:form>
             </p:layoutUnit>
+            <p:layoutUnit position="north" size="65" header="Login form" rendered="#{!userController.logged}">
 
-            <p:layoutUnit position="south" size="60">
-                <ui:insert name="footer"/>
+            </p:layoutUnit>
+
+            <p:layoutUnit position="south" size="60" rendered="#{userController.logged}">
+                <h:form >
+                    <p:commandLink rendered="#{userController.logged}"
+                                   value="You are logged as #{userController.loggedPerson.firstName}. Logout" action="#{personController.logout()}" ajax="false" ></p:commandLink>
+                                   
+                </h:form>
+                <p:outputLabel value="Please login to continue ... " rendered="#{!userController.logged}" ></p:outputLabel>
+                <p:outputLabel value="IP Address - #{userController.ipAddress}"></p:outputLabel>
             </p:layoutUnit>
 
             <p:layoutUnit position="center">
@@ -43,6 +56,19 @@
             </p:layoutUnit>
 
         </p:layout>
+
+        <p:panel header="Login form" rendered="#{!userController.logged}">
+            <h:form id="loginForm" style="padding-left: 40%">
+                <h:panelGrid columns="2">
+                    <p:outputLabel value="Username"></p:outputLabel>
+                    <p:inputText autocomplete="off" value="#{userController.username}" ></p:inputText>
+                    <p:outputLabel value="Password"></p:outputLabel>
+                    <p:password autocomplete="off" value="#{userController.password}" ></p:password>
+                    <p:outputLabel></p:outputLabel>
+                    <p:commandButton ajax="false" action="#{userController.login()}" value="Login" ></p:commandButton>
+                </h:panelGrid>
+            </h:form>
+        </p:panel>
 
     </h:body>
 

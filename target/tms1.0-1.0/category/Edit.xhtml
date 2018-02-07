@@ -12,12 +12,10 @@
             <h:form id="CategoryEditForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{categoryController.selected != null}">
-                        <p:outputLabel value="#{bundle.EditCategoryLabel_id}" for="id" />
-                        <p:inputText id="id" value="#{categoryController.selected.id}" title="#{bundle.EditCategoryTitle_id}" />
-                        <p:outputLabel value="#{bundle.EditCategoryLabel_name}" for="name" />
-                        <p:inputText id="name" value="#{categoryController.selected.name}" title="#{bundle.EditCategoryTitle_name}" />
-                        <p:outputLabel value="#{bundle.EditCategoryLabel_remarks}" for="remarks" />
-                        <p:inputText id="remarks" value="#{categoryController.selected.remarks}" title="#{bundle.EditCategoryTitle_remarks}" />
+                        <p:outputLabel value="#{bundle.CreateCategoryLabel_name}" for="name" />
+                        <p:inputText id="name" value="#{categoryController.selected.name}" title="#{bundle.CreateCategoryTitle_name}" />
+                        <p:outputLabel value="#{bundle.CreateCategoryLabel_remarks}" for="remarks" />
+                        <p:inputText id="remarks" value="#{categoryController.selected.remarks}" title="#{bundle.CreateCategoryTitle_remarks}" />
                     </p:panelGrid>
                     <p:commandButton actionListener="#{categoryController.update}" value="#{bundle.Save}" update="display,:CategoryListForm:datalist,:growl" oncomplete="handleSubmit(args, 'CategoryEditDialog');"/>
                     <p:commandButton value="#{bundle.Cancel}" onclick="CategoryEditDialog.hide()"/>

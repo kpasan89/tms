@@ -37,6 +37,7 @@ public class User implements Serializable {
     private String firstName;
     private String lastName;
     private String email;
+    private String username;
     private String password;
     private String cunfirm_password;
     private boolean retired;
@@ -90,6 +91,9 @@ public class User implements Serializable {
     }
 
     public Location getLocation() {
+        if (location == null) {
+            location = new Location();
+        }
         return location;
     }
 
@@ -146,6 +150,9 @@ public class User implements Serializable {
     }
 
     public Date getJoinedDate() {
+        if (joinedDate == null) {
+            joinedDate = new Date();
+        }
         return joinedDate;
     }
 
@@ -176,5 +183,13 @@ public class User implements Serializable {
     public void setRetired(boolean retired) {
         this.retired = retired;
     }
-    
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
 }

@@ -29,22 +29,11 @@
 
                         <p:column>
                             <f:facet name="header">
-                                <h:outputText value="#{bundle.ListUserTitle_id}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.id}"/>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
                                 <h:outputText value="#{bundle.ListUserTitle_rank}"/>
                             </f:facet>
                             <h:outputText value="#{item.rank}"/>
                         </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListUserTitle_location}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.location}"/>
-                        </p:column>
+                        
                         <p:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListUserTitle_firstName}"/>
@@ -63,6 +52,21 @@
                             </f:facet>
                             <h:outputText value="#{item.email}"/>
                         </p:column>
+                        
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListUserTitle_location}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.location.name}"/>
+                        </p:column>
+                        
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Username"/>
+                            </f:facet>
+                            <h:outputText value="#{item.username}"/>
+                        </p:column>
+                        
                         <p:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListUserTitle_password}"/>
@@ -86,7 +90,7 @@
                                 <h:outputText value="#{bundle.ListUserTitle_joinedDate}"/>
                             </f:facet>
                             <h:outputText value="#{item.joinedDate}">
-                                <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                                <f:convertDateTime pattern="MM/dd/yyyy" />
                             </h:outputText>
                         </p:column>
                         <p:column>

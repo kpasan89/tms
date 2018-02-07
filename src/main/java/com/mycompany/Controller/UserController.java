@@ -45,6 +45,7 @@ public class UserController implements Serializable {
     private boolean operator = false;
     private boolean accountant = false;
     private boolean officerCommanding = false;
+    private String ipAddress;
 //    private CustomerController customerController;
 
     public UserController() {
@@ -54,7 +55,7 @@ public class UserController implements Serializable {
 
         //Get IP Address---------------------------------
         HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
-        String ipAddress = request.getHeader("X-FORWARDED-FOR");
+        ipAddress = request.getHeader("X-FORWARDED-FOR");
         if (ipAddress == null) {
             ipAddress = request.getRemoteAddr();
         }
@@ -142,16 +143,17 @@ public class UserController implements Serializable {
     }
 
     public void create() {
-        persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("UserCreated"));
         if (selected != null) {
             setEmbeddableKeys();
             try {
-                if (selected.getEmail().trim().matches(".*[,/'#~@\\x5B\\x5D}{+_)(*&^%$£\"!\\|<>]+.*")) {
-                    JsfUtil.addErrorMessage("User name contains with special characters. Please remove special characters");
-                } else if (!userNameAvailable(selected.getEmail())) {
-                    JsfUtil.addErrorMessage("User name already exists. Please enter another username");
+                if (!selected.getUsername().trim().matches("\\p{Alnum}*")) {
+                    JsfUtil.addErrorMessage("Remove Special Characters");
+                } else if (!userNameAvailable(selected.getUsername())) {
+                    JsfUtil.addErrorMessage("Username already exists");
+                    System.out.println("Username Exist");
                 } else if (!selected.getPassword().equals(selected.getCunfirm_password())) {
-                    JsfUtil.addErrorMessage("Password and Re-entered password are not matching");
+                    JsfUtil.addErrorMessage("Re-entered password not match");
+                    System.out.println("Password not match");
                 } else {
 
                     addPassword = CommonController.makeHash(selected.getPassword());
@@ -159,6 +161,18 @@ public class UserController implements Serializable {
 
                     User u = new User();
                     u.setFirstName(selected.getFirstName());
+                    u.setAccountType(selected.getAccountType());
+                    u.setCunfirm_password(addCunfirmPassword);
+                    u.setEmail(selected.getEmail());
+                    u.setJoinedDate(selected.getJoinedDate());
+                    u.setLastName(selected.getLastName());
+                    u.setLocation(selected.getLocation());
+                    u.setPassword(addPassword);
+                    u.setRank(selected.getRank());
+                    u.setRemarks(selected.getRemarks());
+                    u.setRetired(false);
+                    u.setStatus(selected.getStatus());
+                    u.setUsername(selected.getUsername());
 
                     getFacade().create(u);
                     JsfUtil.addSuccessMessage("Person was successfully created");
@@ -184,11 +198,11 @@ public class UserController implements Serializable {
         }
     }
 
-    public Boolean userNameAvailable(String email) {
+    public Boolean userNameAvailable(String username) {
         Boolean available = true;
         List<User> allUsers = getFacade().findAll();
         for (User u : allUsers) {
-            if (email.toLowerCase().equals(u.getEmail())) {
+            if (username.toLowerCase().equals(u.getUsername())) {
                 available = false;
             }
         }
@@ -212,6 +226,12 @@ public class UserController implements Serializable {
             items = getFacade().findAll();
         }
         return items;
+    }
+    
+    public List<User> completeUsers(String qry) {
+        String temSql;
+        temSql = "SELECT u FROM User u where u.retired=false and LOWER(u.firstName) like '%" + qry.toLowerCase() + "%' order by u.firstName";
+        return getFacade().findBySQL(temSql);
     }
 
     private void persist(PersistAction persistAction, String successMessage) {
@@ -350,8 +370,57 @@ public class UserController implements Serializable {
         this.officerCommanding = officerCommanding;
     }
 
+    public String getIpAddress() {
+        return ipAddress;
+    }
+
+    public void setIpAddress(String ipAddress) {
+        this.ipAddress = ipAddress;
+    }
+
     @FacesConverter(forClass = User.class)
     public static class UserControllerConverter implements Converter {
+
+        @Override
+        public Object getAsObject(FacesContext facesContext, UIComponent component, String value) {
+            if (value == null || value.length() == 0) {
+                return null;
+            }
+            UserController controller = (UserController) facesContext.getApplication().getELResolver().
+                    getValue(facesContext.getELContext(), null, "userController");
+            return controller.getUser(getKey(value));
+        }
+
+        java.lang.Long getKey(String value) {
+            java.lang.Long key;
+            key = Long.valueOf(value);
+            return key;
+        }
+
+        String getStringKey(java.lang.Long value) {
+            StringBuilder sb = new StringBuilder();
+            sb.append(value);
+            return sb.toString();
+        }
+
+        @Override
+        public String getAsString(FacesContext facesContext, UIComponent component, Object object) {
+            if (object == null) {
+                return null;
+            }
+            if (object instanceof User) {
+                User o = (User) object;
+                return getStringKey(o.getId());
+            } else {
+                Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "object {0} is of type {1}; expected type: {2}", new Object[]{object, object.getClass().getName(), User.class.getName()});
+                return null;
+            }
+        }
+
+    }
+    
+    @FacesConverter("userConverter")
+    public static class UserConverter implements Converter {
 
         @Override
         public Object getAsObject(FacesContext facesContext, UIComponent component, String value) {

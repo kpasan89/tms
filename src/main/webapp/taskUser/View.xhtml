@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="TaskUserViewDlg" widgetVar="TaskUserViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewTaskUserTitle}">
+            <h:form id="TaskUserViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{taskUserController.selected != null}">
+                        <h:outputText value="#{bundle.ViewTaskUserLabel_username}"/>
+                        <h:outputText value="#{taskUserController.selected.username}" title="#{bundle.ViewTaskUserTitle_username}"/>
+                        <h:outputText value="Name"/>
+                        <h:outputText value="#{taskUserController.selected.username.firstName} #{taskUserController.selected.username.lastName}"/>
+                        <h:outputText value="#{bundle.ViewTaskUserLabel_task}"/>
+                        <h:outputText value="#{taskUserController.selected.task.name}" title="#{bundle.ViewTaskUserTitle_task}"/>
+                        <h:outputText value="#{bundle.ViewTaskUserLabel_remarks}"/>
+                        <h:outputText value="#{taskUserController.selected.remarks}" title="#{bundle.ViewTaskUserTitle_remarks}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="TaskUserViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

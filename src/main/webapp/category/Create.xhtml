@@ -12,8 +12,6 @@
             <h:form id="CategoryCreateForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{categoryController.selected != null}">
-                        <p:outputLabel value="#{bundle.CreateCategoryLabel_id}" for="id" />
-                        <p:inputText id="id" value="#{categoryController.selected.id}" title="#{bundle.CreateCategoryTitle_id}" />
                         <p:outputLabel value="#{bundle.CreateCategoryLabel_name}" for="name" />
                         <p:inputText id="name" value="#{categoryController.selected.name}" title="#{bundle.CreateCategoryTitle_name}" />
                         <p:outputLabel value="#{bundle.CreateCategoryLabel_remarks}" for="remarks" />

@@ -12,29 +12,39 @@
             <h:form id="TaskEditForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{taskController.selected != null}">
-                        <p:outputLabel value="#{bundle.EditTaskLabel_id}" for="id" />
-                        <p:inputText id="id" value="#{taskController.selected.id}" title="#{bundle.EditTaskTitle_id}" />
-                        <p:outputLabel value="#{bundle.EditTaskLabel_name}" for="name" />
-                        <p:inputText id="name" value="#{taskController.selected.name}" title="#{bundle.EditTaskTitle_name}" />
-                        <p:outputLabel value="#{bundle.EditTaskLabel_category}" for="category" />
-                        <p:selectOneMenu id="category" value="#{taskController.selected.category}" >
-                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                        <p:outputLabel value="#{bundle.CreateTaskLabel_name}" for="name" />
+                        <p:inputText id="name" value="#{taskController.selected.name}" title="#{bundle.CreateTaskTitle_name}" />
+                        <p:outputLabel value="#{bundle.CreateTaskLabel_category}" for="category" />
+                        <p:selectOneMenu id="category" value="#{taskController.selected.category}" filter="true" filterMatchMode="contains">
                             <f:selectItems value="#{categoryController.itemsAvailableSelectOne}"
                                            var="categoryItem"
-                                           itemValue="#{categoryItem}"/>
+                                           itemValue="#{categoryItem}"
+                                           itemLabel="#{categoryItem.name}"/>
                         </p:selectOneMenu>
-                        <p:outputLabel value="#{bundle.EditTaskLabel_priority}" for="priority" />
-                        <p:inputText id="priority" value="#{taskController.selected.priority}" title="#{bundle.EditTaskTitle_priority}" />
-                        <p:outputLabel value="#{bundle.EditTaskLabel_taskStatus}" for="taskStatus" />
-                        <p:inputText id="taskStatus" value="#{taskController.selected.taskStatus}" title="#{bundle.EditTaskTitle_taskStatus}" />
-                        <p:outputLabel value="#{bundle.EditTaskLabel_completePercent}" for="completePercent" />
-                        <p:inputText id="completePercent" value="#{taskController.selected.completePercent}" title="#{bundle.EditTaskTitle_completePercent}" />
-                        <p:outputLabel value="#{bundle.EditTaskLabel_startDate}" for="startDate" />
-                        <p:calendar id="startDate" pattern="MM/dd/yyyy HH:mm:ss" value="#{taskController.selected.startDate}" title="#{bundle.EditTaskTitle_startDate}"  showOn="button"/>
-                        <p:outputLabel value="#{bundle.EditTaskLabel_dueDate}" for="dueDate" />
-                        <p:calendar id="dueDate" pattern="MM/dd/yyyy HH:mm:ss" value="#{taskController.selected.dueDate}" title="#{bundle.EditTaskTitle_dueDate}"  showOn="button"/>
-                        <p:outputLabel value="#{bundle.EditTaskLabel_remarks}" for="remarks" />
-                        <p:inputText id="remarks" value="#{taskController.selected.remarks}" title="#{bundle.EditTaskTitle_remarks}" />
+                        <p:outputLabel value="#{bundle.CreateTaskLabel_priority}" for="priority" />
+                        <p:selectOneMenu id="priority" value="#{taskController.selected.priority}" title="#{bundle.CreateTaskTitle_priority}"  filter="true" filterMatchMode="contains">
+                            <f:selectItems value="#{enumController.priorities}"
+                                           var="priorities"
+                                           itemValue="#{priorities}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.CreateTaskLabel_taskStatus}" for="taskStatus" />
+                        <p:selectOneMenu id="taskStatus" value="#{taskController.selected.taskStatus}" title="#{bundle.CreateTaskTitle_taskStatus}"  filter="true" filterMatchMode="contains">
+                            <f:selectItems value="#{enumController.taskStatuses}"
+                                           var="taskStatuses"
+                                           itemValue="#{taskStatuses}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.CreateTaskLabel_completePercent}" for="completePercent" />
+                        <p:inputText id="completePercent" value="#{taskController.selected.completePercent}" title="#{bundle.CreateTaskTitle_completePercent}" />
+                        <p:outputLabel value="#{bundle.CreateTaskLabel_startDate}" for="startDate" />
+                        <p:calendar id="startDate" pattern="MM/dd/yyyy" value="#{taskController.selected.startDate}" title="#{bundle.EditTaskTitle_startDate}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.CreateTaskLabel_dueDate}" for="dueDate" />
+                        <p:calendar id="dueDate" pattern="MM/dd/yyyy" value="#{taskController.selected.dueDate}" title="#{bundle.EditTaskTitle_dueDate}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.CreateTaskLabel_remarks}" for="remarks" />
+                        <p:inputText id="remarks" value="#{taskController.selected.remarks}" title="#{bundle.CreateTaskTitle_remarks}" />
+                        <p:outputLabel value="Assigned User :" for="assUser" />
+                        <p:autoComplete id="assUser" multiple="true" value="#{taskController.selected.shareTaskList}" completeMethod="#{userController.completeUsers}"
+                                        var="user" itemLabel="#{user.firstName} #{user.lastName}" itemValue="#{user}" forceSelection="true" converter="userConverter">
+                        </p:autoComplete>
                     </p:panelGrid>
                     <p:commandButton actionListener="#{taskController.update}" value="#{bundle.Save}" update="display,:TaskListForm:datalist,:growl" oncomplete="handleSubmit(args, 'TaskEditDialog');"/>
                     <p:commandButton value="#{bundle.Cancel}" onclick="TaskEditDialog.hide()"/>

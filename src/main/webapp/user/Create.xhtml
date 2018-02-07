@@ -12,15 +12,12 @@
             <h:form id="UserCreateForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{userController.selected != null}">
-                        <p:outputLabel value="#{bundle.CreateUserLabel_id}" for="id" />
-                        <p:inputText id="id" value="#{userController.selected.id}" title="#{bundle.CreateUserTitle_id}" />
                         <p:outputLabel value="#{bundle.CreateUserLabel_rank}" for="rank" />
-                        <p:inputText id="rank" value="#{userController.selected.rank}" title="#{bundle.CreateUserTitle_rank}" />
-                        <p:outputLabel value="#{bundle.CreateUserLabel_location}" for="location" />
-                        <p:selectOneMenu id="location" value="#{userController.selected.location}" >
-                            <f:selectItems value="#{locationController.itemsAvailableSelectOne}"
-                                           var="locationItem"
-                                           itemValue="#{locationItem}"/>
+                        <p:selectOneMenu id="rank" value="#{userController.selected.rank}" title="#{bundle.CreateUserTitle_rank}" filter="true" filterMatchMode="contains">
+                            <f:selectItem itemLabel="Select Item"></f:selectItem>
+                            <f:selectItems value="#{enumController.ranks}"
+                                           var="item"
+                                           itemValue="#{item}"/>
                         </p:selectOneMenu>
                         <p:outputLabel value="#{bundle.CreateUserLabel_firstName}" for="firstName" />
                         <p:inputText id="firstName" value="#{userController.selected.firstName}" title="#{bundle.CreateUserTitle_firstName}" />
@@ -28,18 +25,37 @@
                         <p:inputText id="lastName" value="#{userController.selected.lastName}" title="#{bundle.CreateUserTitle_lastName}" />
                         <p:outputLabel value="#{bundle.CreateUserLabel_email}" for="email" />
                         <p:inputText id="email" value="#{userController.selected.email}" title="#{bundle.CreateUserTitle_email}" />
+                        <p:outputLabel value="#{bundle.CreateUserLabel_location}" for="location" />
+                        <p:selectOneMenu id="location" value="#{userController.selected.location}" filter="true" filterMatchMode="contains">
+                            <f:selectItems value="#{locationController.itemsAvailableSelectOne}"
+                                           var="locationItem"
+                                           itemValue="#{locationItem}"
+                                           itemLabel="#{locationItem.name}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="Username" for="username" />
+                        <p:inputText id="username" value="#{userController.selected.username}" title="Username" />
                         <p:outputLabel value="#{bundle.CreateUserLabel_password}" for="password" />
-                        <p:inputText id="password" value="#{userController.selected.password}" title="#{bundle.CreateUserTitle_password}" />
+                        <p:password id="password" value="#{userController.selected.password}"/>
+                        <p:outputLabel value="#{bundle.CreateUserLabel_cunfirm_password}" for="cunfirm_password" />
+                        <p:password id="cunfirm_password" value="#{userController.selected.cunfirm_password}"/>
                         <p:outputLabel value="#{bundle.CreateUserLabel_status}" for="status" />
-                        <p:inputText id="status" value="#{userController.selected.status}" title="#{bundle.CreateUserTitle_status}" />
+                        <p:selectOneMenu id="status" value="#{userController.selected.status}" title="#{bundle.CreateUserTitle_status}" filter="true" filterMatchMode="contains">
+                            <f:selectItem itemLabel="Select Item"></f:selectItem>
+                            <f:selectItems value="#{enumController.userStatuses}"
+                                           var="item"
+                                           itemValue="#{item}"/>
+                        </p:selectOneMenu>
                         <p:outputLabel value="#{bundle.CreateUserLabel_accountType}" for="accountType" />
-                        <p:inputText id="accountType" value="#{userController.selected.accountType}" title="#{bundle.CreateUserTitle_accountType}" />
+                        <p:selectOneMenu id="accountType" value="#{userController.selected.accountType}" title="#{bundle.CreateUserTitle_accountType}" filter="true" filterMatchMode="contains">
+                            <f:selectItem itemLabel="Select Item"></f:selectItem>
+                            <f:selectItems value="#{enumController.accountTypes}"
+                                           var="item"
+                                           itemValue="#{item}"/>
+                        </p:selectOneMenu>
                         <p:outputLabel value="#{bundle.CreateUserLabel_joinedDate}" for="joinedDate" />
-                        <p:calendar id="joinedDate" pattern="MM/dd/yyyy HH:mm:ss" value="#{userController.selected.joinedDate}" title="#{bundle.EditUserTitle_joinedDate}"  showOn="button"/>
+                        <p:calendar id="joinedDate" pattern="MM/dd/yyyy" value="#{userController.selected.joinedDate}" title="#{bundle.EditUserTitle_joinedDate}"  showOn="button"/>
                         <p:outputLabel value="#{bundle.CreateUserLabel_remarks}" for="remarks" />
                         <p:inputText id="remarks" value="#{userController.selected.remarks}" title="#{bundle.CreateUserTitle_remarks}" />
-                        <p:outputLabel value="#{bundle.CreateUserLabel_cunfirm_password}" for="cunfirm_password" />
-                        <p:inputText id="cunfirm_password" value="#{userController.selected.cunfirm_password}" title="#{bundle.CreateUserTitle_cunfirm_password}" />
                     </p:panelGrid>
                     <p:commandButton actionListener="#{userController.create}" value="#{bundle.Save}" update="display,:UserListForm:datalist,:growl" oncomplete="handleSubmit(args,'UserCreateDialog');"/>
                     <p:commandButton value="#{bundle.Cancel}" onclick="UserCreateDialog.hide()"/>

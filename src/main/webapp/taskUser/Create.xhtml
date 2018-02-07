@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="TaskUserCreateDlg" widgetVar="TaskUserCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateTaskUserTitle}">
+            <h:form id="TaskUserCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{taskUserController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateTaskUserLabel_username}" for="username" />
+                        <p:selectOneMenu id="username" value="#{taskUserController.selected.username}" filter="true" filterMatchMode="contains">
+                            <f:selectItems value="#{userController.itemsAvailableSelectOne}"
+                                           var="usernameItem"
+                                           itemValue="#{usernameItem}"
+                                           itemLabel="#{usernameItem.firstName} #{usernameItem.lastName}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.CreateTaskUserLabel_task}" for="task" />
+                        <p:selectOneMenu id="task" value="#{taskUserController.selected.task}" filter="true" filterMatchMode="contains">
+                            <f:selectItems value="#{taskController.itemsAvailableSelectOne}"
+                                           var="taskItem"
+                                           itemValue="#{taskItem}"
+                                           itemLabel="#{taskItem.name}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.CreateTaskUserLabel_remarks}" for="remarks" />
+                        <p:inputText id="remarks" value="#{taskUserController.selected.remarks}" title="#{bundle.CreateTaskUserTitle_remarks}" />
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{taskUserController.create}" value="#{bundle.Save}" update="display,:TaskUserListForm:datalist,:growl" oncomplete="handleSubmit(args,'TaskUserCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="TaskUserCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

@@ -12,12 +12,10 @@
             <h:form id="TaskViewForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{taskController.selected != null}">
-                        <h:outputText value="#{bundle.ViewTaskLabel_id}"/>
-                        <h:outputText value="#{taskController.selected.id}" title="#{bundle.ViewTaskTitle_id}"/>
                         <h:outputText value="#{bundle.ViewTaskLabel_name}"/>
                         <h:outputText value="#{taskController.selected.name}" title="#{bundle.ViewTaskTitle_name}"/>
                         <h:outputText value="#{bundle.ViewTaskLabel_category}"/>
-                        <h:outputText value="#{taskController.selected.category}" title="#{bundle.ViewTaskTitle_category}"/>
+                        <h:outputText value="#{taskController.selected.category.name}" title="#{bundle.ViewTaskTitle_category}"/>
                         <h:outputText value="#{bundle.ViewTaskLabel_priority}"/>
                         <h:outputText value="#{taskController.selected.priority}" title="#{bundle.ViewTaskTitle_priority}"/>
                         <h:outputText value="#{bundle.ViewTaskLabel_taskStatus}"/>
@@ -26,11 +24,11 @@
                         <h:outputText value="#{taskController.selected.completePercent}" title="#{bundle.ViewTaskTitle_completePercent}"/>
                         <h:outputText value="#{bundle.ViewTaskLabel_startDate}"/>
                         <h:outputText value="#{taskController.selected.startDate}" title="#{bundle.ViewTaskTitle_startDate}">
-                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
                         </h:outputText>
                         <h:outputText value="#{bundle.ViewTaskLabel_dueDate}"/>
                         <h:outputText value="#{taskController.selected.dueDate}" title="#{bundle.ViewTaskTitle_dueDate}">
-                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
                         </h:outputText>
                         <h:outputText value="#{bundle.ViewTaskLabel_remarks}"/>
                         <h:outputText value="#{taskController.selected.remarks}" title="#{bundle.ViewTaskTitle_remarks}"/>

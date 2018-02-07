@@ -5,11 +5,17 @@
  */
 package com.mycompany.Facade;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.TimeZone;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.persistence.EntityManager;
 import javax.persistence.TemporalType;
 import javax.persistence.TypedQuery;
@@ -66,8 +72,8 @@ public abstract class AbstractFacade<T> {
         javax.persistence.Query q = getEntityManager().createQuery(cq);
         return ((Long) q.getSingleResult()).intValue();
     }
-    
-     public T findFirstBySQL(String temSQL, Map<String, Object> parameters) {
+
+    public T findFirstBySQL(String temSQL, Map<String, Object> parameters) {
         TypedQuery<T> qry = getEntityManager().createQuery(temSQL, entityClass);
         Set s = parameters.entrySet();
         Iterator it = s.iterator();
@@ -91,5 +97,58 @@ public abstract class AbstractFacade<T> {
             return null;
         }
     }
-    
+
+    public List<T> findBySQL(String temSQL) {
+        TypedQuery<T> qry = getEntityManager().createQuery(temSQL, entityClass);
+        return qry.getResultList();
+    }
+
+    public List<T> findBySQL(String temSQL, Map<String, Object> parameters) {
+        TypedQuery<T> qry = getEntityManager().createQuery(temSQL, entityClass);
+        Set s = parameters.entrySet();
+        Iterator it = s.iterator();
+        while (it.hasNext()) {
+            Map.Entry m = (Map.Entry) it.next();
+            String pPara = (String) m.getKey();
+            if (m.getValue() instanceof Date) {
+                Date d = (Date) m.getValue();
+                System.out.println("d = " + d);
+                Calendar c = Calendar.getInstance(TimeZone.getTimeZone("Asia/Colombo"));
+                c.setTime(d);
+
+                Calendar ec = Calendar.getInstance(TimeZone.getTimeZone("Asia/Colombo"));
+                ec.set(Calendar.YEAR, c.get(Calendar.YEAR));
+                ec.set(Calendar.MONTH, c.get(Calendar.MONTH));
+                ec.set(Calendar.DATE, c.get(Calendar.DATE));
+                ec.set(Calendar.HOUR_OF_DAY, ec.getActualMinimum(Calendar.HOUR_OF_DAY));
+                ec.set(Calendar.MINUTE, ec.getActualMinimum(Calendar.MINUTE));
+                ec.set(Calendar.MILLISECOND, ec.getActualMinimum(Calendar.MILLISECOND));
+
+                Date e = ec.getTime();
+                System.out.println("e = " + e);
+
+                SimpleDateFormat isoFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+                String sd = isoFormat.format(e);
+                System.out.println("sd = " + sd);
+                isoFormat.setTimeZone(TimeZone.getTimeZone("Asia/Colombo"));
+                sd = isoFormat.format(e);
+                Date date;
+                try {
+                    date = isoFormat.parse(sd);
+                } catch (ParseException ex) {
+                    date = ec.getTime();
+                    Logger.getLogger(AbstractFacade.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                System.out.println("date = " + date);
+                qry.setParameter(pPara, date, TemporalType.DATE);
+                System.out.println("Parameter " + pPara + "\tValue\t" + d);
+            } else {
+                Object pVal = (Object) m.getValue();
+                qry.setParameter(pPara, pVal);
+                System.out.println("Parameter " + pPara + "\tValue\t" + pVal);
+            }
+        }
+        return qry.getResultList();
+    }
+
 }

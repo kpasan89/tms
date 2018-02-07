@@ -12,32 +12,31 @@
             <h:form id="UserViewForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{userController.selected != null}">
-                        <h:outputText value="#{bundle.ViewUserLabel_id}"/>
-                        <h:outputText value="#{userController.selected.id}" title="#{bundle.ViewUserTitle_id}"/>
                         <h:outputText value="#{bundle.ViewUserLabel_rank}"/>
                         <h:outputText value="#{userController.selected.rank}" title="#{bundle.ViewUserTitle_rank}"/>
-                        <h:outputText value="#{bundle.ViewUserLabel_location}"/>
-                        <h:outputText value="#{userController.selected.location}" title="#{bundle.ViewUserTitle_location}"/>
                         <h:outputText value="#{bundle.ViewUserLabel_firstName}"/>
                         <h:outputText value="#{userController.selected.firstName}" title="#{bundle.ViewUserTitle_firstName}"/>
                         <h:outputText value="#{bundle.ViewUserLabel_lastName}"/>
                         <h:outputText value="#{userController.selected.lastName}" title="#{bundle.ViewUserTitle_lastName}"/>
                         <h:outputText value="#{bundle.ViewUserLabel_email}"/>
                         <h:outputText value="#{userController.selected.email}" title="#{bundle.ViewUserTitle_email}"/>
+                        <h:outputText value="#{bundle.ViewUserLabel_location}"/>
+                        <h:outputText value="#{userController.selected.location.name}" title="#{bundle.ViewUserTitle_location}"/>
                         <h:outputText value="#{bundle.ViewUserLabel_password}"/>
                         <h:outputText value="#{userController.selected.password}" title="#{bundle.ViewUserTitle_password}"/>
+                        <h:outputText value="#{bundle.ViewUserLabel_cunfirm_password}"/>
+                        <h:outputText value="#{userController.selected.cunfirm_password}" title="#{bundle.ViewUserTitle_cunfirm_password}"/>
                         <h:outputText value="#{bundle.ViewUserLabel_status}"/>
                         <h:outputText value="#{userController.selected.status}" title="#{bundle.ViewUserTitle_status}"/>
                         <h:outputText value="#{bundle.ViewUserLabel_accountType}"/>
                         <h:outputText value="#{userController.selected.accountType}" title="#{bundle.ViewUserTitle_accountType}"/>
                         <h:outputText value="#{bundle.ViewUserLabel_joinedDate}"/>
                         <h:outputText value="#{userController.selected.joinedDate}" title="#{bundle.ViewUserTitle_joinedDate}">
-                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
                         </h:outputText>
                         <h:outputText value="#{bundle.ViewUserLabel_remarks}"/>
                         <h:outputText value="#{userController.selected.remarks}" title="#{bundle.ViewUserTitle_remarks}"/>
-                        <h:outputText value="#{bundle.ViewUserLabel_cunfirm_password}"/>
-                        <h:outputText value="#{userController.selected.cunfirm_password}" title="#{bundle.ViewUserTitle_cunfirm_password}"/>
+                        
                     </p:panelGrid>
                     <p:commandButton value="#{bundle.Close}" onclick="UserViewDialog.hide()"/>
                 </h:panelGroup>
