@@ -12,13 +12,6 @@
             <h:form id="TaskUserEditForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{taskUserController.selected != null}">
-                        <p:outputLabel value="#{bundle.CreateTaskUserLabel_username}" for="username" />
-                        <p:selectOneMenu id="username" value="#{taskUserController.selected.username}" filter="true" filterMatchMode="contains">
-                            <f:selectItems value="#{userController.itemsAvailableSelectOne}"
-                                           var="usernameItem"
-                                           itemValue="#{usernameItem}"
-                                           itemLabel="#{usernameItem.firstName} #{usernameItem.lastName}"/>
-                        </p:selectOneMenu>
                         <p:outputLabel value="#{bundle.CreateTaskUserLabel_task}" for="task" />
                         <p:selectOneMenu id="task" value="#{taskUserController.selected.task}" filter="true" filterMatchMode="contains">
                             <f:selectItems value="#{taskController.itemsAvailableSelectOne}"
@@ -26,6 +19,10 @@
                                            itemValue="#{taskItem}"
                                            itemLabel="#{taskItem.name}"/>
                         </p:selectOneMenu>
+                        <p:outputLabel value="Assigned User :" for="assUser" />
+                        <p:autoComplete id="assUser" multiple="true" value="#{taskUserController.selected.userList}" completeMethod="#{userController.completeUsers}"
+                                        var="user" itemLabel="#{user.firstName} #{user.lastName}" itemValue="#{user}" forceSelection="true" converter="userConverter">
+                        </p:autoComplete>
                         <p:outputLabel value="#{bundle.CreateTaskUserLabel_remarks}" for="remarks" />
                         <p:inputText id="remarks" value="#{taskUserController.selected.remarks}" title="#{bundle.CreateTaskUserTitle_remarks}" />
                     </p:panelGrid>

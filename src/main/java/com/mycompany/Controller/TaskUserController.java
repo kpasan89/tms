@@ -3,6 +3,7 @@ package com.mycompany.Controller;
 import com.mycompany.Entity.TaskUser;
 import com.mycompany.Controller.util.JsfUtil;
 import com.mycompany.Controller.util.JsfUtil.PersistAction;
+import com.mycompany.Entity.User;
 import com.mycompany.Facade.TaskUserFacade;
 
 import java.io.Serializable;
@@ -108,7 +109,7 @@ public class TaskUserController implements Serializable {
             }
         }
     }
-
+    
     public TaskUser getTaskUser(java.lang.Long id) {
         return getFacade().find(id);
     }

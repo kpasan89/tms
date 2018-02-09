@@ -13,9 +13,9 @@
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{taskUserController.selected != null}">
                         <h:outputText value="#{bundle.ViewTaskUserLabel_username}"/>
-                        <h:outputText value="#{taskUserController.selected.username}" title="#{bundle.ViewTaskUserTitle_username}"/>
+                        <h:outputText value="#{taskUserController.selected.createdUser}" title="#{bundle.ViewTaskUserTitle_username}"/>
                         <h:outputText value="Name"/>
-                        <h:outputText value="#{taskUserController.selected.username.firstName} #{taskUserController.selected.username.lastName}"/>
+                        <h:outputText value="#{taskUserController.selected.createdUser.firstName} #{taskUserController.selected.createdUser.lastName}"/>
                         <h:outputText value="#{bundle.ViewTaskUserLabel_task}"/>
                         <h:outputText value="#{taskUserController.selected.task.name}" title="#{bundle.ViewTaskUserTitle_task}"/>
                         <h:outputText value="#{bundle.ViewTaskUserLabel_remarks}"/>

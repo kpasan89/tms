@@ -4,6 +4,7 @@ import com.mycompany.Entity.Task;
 import com.mycompany.Controller.util.JsfUtil;
 import com.mycompany.Controller.util.JsfUtil.PersistAction;
 import com.mycompany.Facade.TaskFacade;
+import com.mycompany.Facade.TaskUserFacade;
 
 import java.io.Serializable;
 import java.util.List;
@@ -27,6 +28,8 @@ public class TaskController implements Serializable {
     private com.mycompany.Facade.TaskFacade ejbFacade;
     private List<Task> items = null;
     private Task selected;
+    @EJB
+    private TaskUserFacade taskUserFacade;
 
     public TaskController() {
     }
@@ -56,6 +59,7 @@ public class TaskController implements Serializable {
     }
 
     public void create() {
+        //assignUsersToTask();
         persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("TaskCreated"));
         if (!JsfUtil.isValidationFailed()) {
             items = null;    // Invalidate list of items to trigger re-query.
@@ -109,6 +113,18 @@ public class TaskController implements Serializable {
         }
     }
 
+//    public void assignUsersToTask() {
+//        TaskUser tu = new TaskUser();
+//        List<User> taskUsers = getSelected().getShareTaskList();
+//        System.out.println("taskUsers = " + taskUsers);
+//        for (User u : taskUsers) {
+//            tu.setUsername(u);
+//            tu.setTask(selected);
+//            tu.setRemarks(u+selected.getName());
+//            getTaskUserFacade().edit(tu);
+//        }
+//    }
+    
     public Task getTask(java.lang.Long id) {
         return getFacade().find(id);
     }
@@ -119,6 +135,22 @@ public class TaskController implements Serializable {
 
     public List<Task> getItemsAvailableSelectOne() {
         return getFacade().findAll();
+    }
+
+    public TaskUserFacade getTaskUserFacade() {
+        return taskUserFacade;
+    }
+
+    public void setTaskUserFacade(TaskUserFacade taskUserFacade) {
+        this.taskUserFacade = taskUserFacade;
+    }
+
+    public com.mycompany.Facade.TaskFacade getEjbFacade() {
+        return ejbFacade;
+    }
+
+    public void setEjbFacade(com.mycompany.Facade.TaskFacade ejbFacade) {
+        this.ejbFacade = ejbFacade;
     }
 
     @FacesConverter(forClass = Task.class)

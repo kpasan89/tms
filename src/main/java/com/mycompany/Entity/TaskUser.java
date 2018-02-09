@@ -6,11 +6,13 @@
 package com.mycompany.Entity;
 
 import java.io.Serializable;
+import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 /**
  *
@@ -24,10 +26,12 @@ public class TaskUser implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     @ManyToOne
-    private User username;
+    private User createdUser;
     @ManyToOne
     private Task task;
     private String remarks;
+    @OneToMany
+    private List<User> userList;
 
     public Long getId() {
         return id;
@@ -62,14 +66,6 @@ public class TaskUser implements Serializable {
         return "com.mycompany.Entity.TaskUser[ id=" + id + " ]";
     }
 
-    public User getUsername() {
-        return username;
-    }
-
-    public void setUsername(User username) {
-        this.username = username;
-    }
-
     public Task getTask() {
         return task;
     }
@@ -85,5 +81,21 @@ public class TaskUser implements Serializable {
     public void setRemarks(String remarks) {
         this.remarks = remarks;
     }
-    
+
+    public List<User> getUserList() {
+        return userList;
+    }
+
+    public void setUserList(List<User> userList) {
+        this.userList = userList;
+    }
+
+    public User getCreatedUser() {
+        return createdUser;
+    }
+
+    public void setCreatedUser(User createdUser) {
+        this.createdUser = createdUser;
+    }
+
 }

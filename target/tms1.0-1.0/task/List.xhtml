@@ -45,17 +45,17 @@
                             </f:facet>
                             <h:outputText value="#{item.priority}"/>
                         </p:column>
-                        <p:column>
+                        <p:column width="100">
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListTaskTitle_taskStatus}"/>
                             </f:facet>
                             <h:outputText value="#{item.taskStatus}"/>
                         </p:column>
-                        <p:column>
+                        <p:column width="50">
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListTaskTitle_completePercent}"/>
                             </f:facet>
-                            <h:outputText value="#{item.completePercent}"/>
+                            <h:outputText value="#{item.completePercent}%"/>
                         </p:column>
                         <p:column>
                             <f:facet name="header">
@@ -72,6 +72,16 @@
                             <h:outputText value="#{item.dueDate}">
                                 <f:convertDateTime pattern="MM/dd/yyyy" />
                             </h:outputText>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Assigned Users"/>
+                            </f:facet>
+                            <ui:repeat value="#{item.shareTaskList}" var="shareTask">            
+                                <h:outputText value="#{shareTask.firstName} #{shareTask.lastName}" >
+                                </h:outputText>
+                                <br></br>
+                            </ui:repeat>
                         </p:column>
                         <p:column>
                             <f:facet name="header">

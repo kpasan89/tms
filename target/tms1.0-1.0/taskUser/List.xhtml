@@ -31,14 +31,14 @@
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListTaskUserTitle_username}"/>
                             </f:facet>
-                            <h:outputText value="#{item.username.username}"/>
+                            <h:outputText value="#{item.createdUser.username}"/>
                         </p:column>
                         
                         <p:column>
                             <f:facet name="header">
                                 <h:outputText value="Name"/>
                             </f:facet>
-                            <h:outputText value="#{item.username.firstName} #{item.username.lastName}"/>
+                            <h:outputText value="#{item.createdUser.firstName} #{item.createdUser.lastName}"/>
                         </p:column>
                         <p:column>
                             <f:facet name="header">
