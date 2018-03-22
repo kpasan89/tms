@@ -10,9 +10,20 @@ package com.mycompany.Enum;
  * @author Pasan
  */
 public enum TaskStatus {
-    New,
-    Pending,
-    Inprogress,
-    Terminated,
-    Completed,
+    New("New"),
+    Pending("Pending"),
+    Inprogress("In Progress"),
+    Terminated("Terminated"),
+    Completed("Completed");
+    
+    private String label;
+
+    private TaskStatus(String label) {
+        this.label = label;
+    }
+
+    public String getLabel() {
+        return label;
+    }
+    
 }

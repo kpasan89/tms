@@ -10,7 +10,18 @@ package com.mycompany.Enum;
  * @author Pasan
  */
 public enum Priority {
-    High,
-    Low,
-    Important,
+    High("High"),
+    Low("Low"),
+    Important("Importanat");
+    
+    private String label;
+
+    private Priority(String label) {
+        this.label = label;
+    }
+
+    public String getLabel() {
+        return label;
+    }
+    
 }

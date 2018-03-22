@@ -43,13 +43,13 @@
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListTaskTitle_priority}"/>
                             </f:facet>
-                            <h:outputText value="#{item.priority}"/>
+                            <h:outputText value="#{item.priority.label}"/>
                         </p:column>
                         <p:column width="100">
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListTaskTitle_taskStatus}"/>
                             </f:facet>
-                            <h:outputText value="#{item.taskStatus}"/>
+                            <h:outputText value="#{item.taskStatus.label}"/>
                         </p:column>
                         <p:column width="50">
                             <f:facet name="header">

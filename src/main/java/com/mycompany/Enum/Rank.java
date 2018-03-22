@@ -10,13 +10,25 @@ package com.mycompany.Enum;
  * @author Pasan
  */
 public enum Rank {
-    Lt,
-    Capt,
-    Maj,
-    Lt_Col,
-    Col,
-    Brig,
-    Maj_Gen,
-    Lt_Gen,
-    Gen,
+    S_Lt("2/Lt"),
+    Lt("Lt"),
+    Capt("Capt"),
+    Maj("Maj"),
+    Lt_Col("Lt Col"),
+    Col("Col"),
+    Brig("Brig"),
+    Maj_Gen("Maj Gen"),
+    Lt_Gen("Lt Gen"),
+    Gen("Gen");
+    
+    private String label;
+
+    private Rank(String label) {
+        this.label = label;
+    }
+
+    public String getLabel() {
+        return label;
+    }
+    
 }

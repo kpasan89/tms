@@ -7,6 +7,7 @@ import com.mycompany.Enum.AccountType;
 import com.mycompany.Facade.UserFacade;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -17,10 +18,12 @@ import javax.ejb.EJB;
 import javax.ejb.EJBException;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
+import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 
 @Named("userController")
@@ -38,7 +41,6 @@ public class UserController implements Serializable {
     private String password;
     private String addPassword;
     private String addCunfirmPassword;
-//    private PersonController personController;
 
     private boolean systemAdministrator = false;
     private boolean ticketingOfficer = false;
@@ -46,7 +48,6 @@ public class UserController implements Serializable {
     private boolean accountant = false;
     private boolean officerCommanding = false;
     private String ipAddress;
-//    private CustomerController customerController;
 
     public UserController() {
     }
@@ -72,16 +73,16 @@ public class UserController implements Serializable {
         if (getFacade().count() == 0) {
             User u = new User();
             u.setFirstName(username);
-            u.setEmail(username);
+            u.setUsername(username);
             u.setAccountType(AccountType.administrator);
             u.setPassword(CommonController.makeHash(password));
             getFacade().create(u);
             loggedPerson = u;
             logged = true;
         }
-        String j = "select u from User u where u.retired=false and lower(u.email)=:em";
+        String j = "select u from User u where u.retired=false and lower(u.username)=:un";
         Map m = new HashMap();
-        m.put("em", username.toLowerCase());
+        m.put("un", username.toLowerCase());
         User usr = getFacade().findFirstBySQL(j, m);
         if (usr == null) {
             logged = false;
@@ -116,6 +117,18 @@ public class UserController implements Serializable {
             return "index";
         }
         return "index";
+    }
+
+    public String logout() {
+        logged = false;
+        loggedPerson = null;
+        username = null;
+        systemAdministrator = false;
+        accountant = false;
+        operator = false;
+        ticketingOfficer = false;
+        officerCommanding = false;
+        return "/index";
     }
 
     public User getSelected() {
@@ -227,11 +240,36 @@ public class UserController implements Serializable {
         }
         return items;
     }
+    private List<User> completeUserVariable;
+    @Inject
+    private TaskController taskController;
+    private List<User> userListFromTaskController;
     
+
     public List<User> completeUsers(String qry) {
+        List<User> ul = getUserListFromTaskController();
+        System.out.println("ul = " + ul);
+
+        String ids = "";
+        if (ul != null) {
+            for (User user : ul) {
+                ids += user.getId() + ",";
+            }
+        }
+        if (!"".equals(ids)) {
+            ids = "(" + ids.substring(0, ids.lastIndexOf(",")) + ")";
+        }
+
         String temSql;
-        temSql = "SELECT u FROM User u where u.retired=false and LOWER(u.firstName) like '%" + qry.toLowerCase() + "%' order by u.firstName";
-        return getFacade().findBySQL(temSql);
+        temSql = "SELECT u FROM User u where u.retired=false and " + ((!"".equals(ids)) ? " u.id NOT IN " + ids + " and " : "") + " LOWER(u.firstName) like '%" + qry.toLowerCase() + "%' order by u.firstName";
+        completeUserVariable = new ArrayList<>();
+        completeUserVariable = getFacade().findBySQL(temSql);
+//        for (User u : completeUserVariable) {
+//            if (u.getFirstName().startsWith(qry) && !taskController.getSelected().getShareTaskList().contains(u)) {
+//                completeUserVariable.add(u);
+//            }
+//        }
+        return completeUserVariable;
     }
 
     private void persist(PersistAction persistAction, String successMessage) {
@@ -378,6 +416,30 @@ public class UserController implements Serializable {
         this.ipAddress = ipAddress;
     }
 
+    public List<User> getCompleteUserVariable() {
+        return completeUserVariable;
+    }
+
+    public void setCompleteUserVariable(List<User> completeUserVariable) {
+        this.completeUserVariable = completeUserVariable;
+    }
+
+    public TaskController getTaskController() {
+        return taskController;
+    }
+
+    public void setTaskController(TaskController taskController) {
+        this.taskController = taskController;
+    }
+
+    public List<User> getUserListFromTaskController() {
+        return userListFromTaskController;
+    }
+
+    public void setUserListFromTaskController(List<User> userListFromTaskController) {
+        this.userListFromTaskController = userListFromTaskController;
+    }
+
     @FacesConverter(forClass = User.class)
     public static class UserControllerConverter implements Converter {
 
@@ -418,7 +480,7 @@ public class UserController implements Serializable {
         }
 
     }
-    
+
     @FacesConverter("userConverter")
     public static class UserConverter implements Converter {
 

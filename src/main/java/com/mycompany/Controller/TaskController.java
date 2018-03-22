@@ -97,7 +97,7 @@ public class TaskController implements Serializable {
                 JsfUtil.addSuccessMessage(successMessage);
             } catch (EJBException ex) {
                 String msg = "";
-                Throwable cause = ex.getCause();
+                Throwable cause = ex.getCause(); 
                 if (cause != null) {
                     msg = cause.getLocalizedMessage();
                 }
@@ -151,7 +151,7 @@ public class TaskController implements Serializable {
 
     public void setEjbFacade(com.mycompany.Facade.TaskFacade ejbFacade) {
         this.ejbFacade = ejbFacade;
-    }
+    } 
 
     @FacesConverter(forClass = Task.class)
     public static class TaskControllerConverter implements Converter {

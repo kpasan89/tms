@@ -10,6 +10,17 @@ package com.mycompany.Enum;
  * @author Pasan
  */
 public enum UserStatus {
-    Active,
-    Inactive,
+    Active("Active"),
+    Inactive("Inactive");
+    
+    private String label;
+
+    private UserStatus(String label) {
+        this.label = label;
+    }
+
+    public String getLabel() {
+        return label;
+    }
+    
 }

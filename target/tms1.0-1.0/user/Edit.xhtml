@@ -17,7 +17,8 @@
                             <f:selectItem itemLabel="Select Item"></f:selectItem>
                             <f:selectItems value="#{enumController.ranks}"
                                            var="item"
-                                           itemValue="#{item}"/>
+                                           itemValue="#{item}"
+                                           itemLabel="#{item.label}"/>
                         </p:selectOneMenu>
                         <p:outputLabel value="#{bundle.CreateUserLabel_firstName}" for="firstName" />
                         <p:inputText id="firstName" value="#{userController.selected.firstName}" title="#{bundle.CreateUserTitle_firstName}" />
@@ -28,6 +29,7 @@
                         <p:inputText id="email" value="#{userController.selected.email}" title="#{bundle.CreateUserTitle_email}" />
                         <p:outputLabel value="#{bundle.CreateUserLabel_location}" for="location" />
                         <p:selectOneMenu id="location" value="#{userController.selected.location}" filter="true" filterMatchMode="contains">
+                            <f:selectItem itemLabel="Select Item"></f:selectItem>
                             <f:selectItems value="#{locationController.itemsAvailableSelectOne}"
                                            var="locationItem"
                                            itemValue="#{locationItem}"
@@ -40,14 +42,16 @@
                             <f:selectItem itemLabel="Select Item"></f:selectItem>
                             <f:selectItems value="#{enumController.userStatuses}"
                                            var="item"
-                                           itemValue="#{item}"/>
+                                           itemValue="#{item}"
+                                           itemLabel="#{item.label}"/>
                         </p:selectOneMenu>
                         <p:outputLabel value="#{bundle.CreateUserLabel_accountType}" for="accountType" />
                         <p:selectOneMenu id="accountType" value="#{userController.selected.accountType}" title="#{bundle.CreateUserTitle_accountType}" filter="true" filterMatchMode="contains">
                             <f:selectItem itemLabel="Select Item"></f:selectItem>
                             <f:selectItems value="#{enumController.accountTypes}"
                                            var="item"
-                                           itemValue="#{item}"/>
+                                           itemValue="#{item}"
+                                           itemLabel="#{item.label}"/>
                         </p:selectOneMenu>
                         <p:outputLabel value="#{bundle.CreateUserLabel_joinedDate}" for="joinedDate" />
                         <p:calendar id="joinedDate" pattern="MM/dd/yyyy" value="#{userController.selected.joinedDate}" title="#{bundle.EditUserTitle_joinedDate}"  showOn="button"/>

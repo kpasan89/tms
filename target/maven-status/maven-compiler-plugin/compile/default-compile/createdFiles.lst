@@ -22,6 +22,7 @@ com\mycompany\Controller\LocationController$LocationControllerConverter.class
 com\mycompany\Controller\util\JsfUtil$PersistAction.class
 com\mycompany\Entity\Category.class
 com\mycompany\Controller\CategoryController$CategoryControllerConverter.class
+com\mycompany\Controller\ScheduleView.class
 com\mycompany\Controller\UserController.class
 com\mycompany\Enum\TaskStatus.class
 com\mycompany\Entity\Category_.class

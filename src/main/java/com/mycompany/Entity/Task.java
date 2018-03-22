@@ -39,9 +39,9 @@ public class Task implements Serializable {
     @Enumerated(EnumType.STRING)
     private TaskStatus taskStatus;
     private int completePercent;
-    @Temporal(javax.persistence.TemporalType.TIMESTAMP)
+    @Temporal(javax.persistence.TemporalType.DATE)
     private Date startDate;
-    @Temporal(javax.persistence.TemporalType.TIMESTAMP)
+    @Temporal(javax.persistence.TemporalType.DATE)
     private Date dueDate;
     private String remarks;
     @OneToMany

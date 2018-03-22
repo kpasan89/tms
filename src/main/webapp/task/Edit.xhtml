@@ -16,6 +16,7 @@
                         <p:inputText id="name" value="#{taskController.selected.name}" title="#{bundle.CreateTaskTitle_name}" />
                         <p:outputLabel value="#{bundle.CreateTaskLabel_category}" for="category" />
                         <p:selectOneMenu id="category" value="#{taskController.selected.category}" filter="true" filterMatchMode="contains">
+                            <f:selectItem itemLabel="Select Item"></f:selectItem>
                             <f:selectItems value="#{categoryController.itemsAvailableSelectOne}"
                                            var="categoryItem"
                                            itemValue="#{categoryItem}"
@@ -23,15 +24,19 @@
                         </p:selectOneMenu>
                         <p:outputLabel value="#{bundle.CreateTaskLabel_priority}" for="priority" />
                         <p:selectOneMenu id="priority" value="#{taskController.selected.priority}" title="#{bundle.CreateTaskTitle_priority}"  filter="true" filterMatchMode="contains">
+                            <f:selectItem itemLabel="Select Item"></f:selectItem>
                             <f:selectItems value="#{enumController.priorities}"
                                            var="priorities"
-                                           itemValue="#{priorities}"/>
+                                           itemValue="#{priorities}"
+                                           itemLabel="#{priorities.label}"/>
                         </p:selectOneMenu>
                         <p:outputLabel value="#{bundle.CreateTaskLabel_taskStatus}" for="taskStatus" />
                         <p:selectOneMenu id="taskStatus" value="#{taskController.selected.taskStatus}" title="#{bundle.CreateTaskTitle_taskStatus}"  filter="true" filterMatchMode="contains">
+                            <f:selectItem itemLabel="Select Item"></f:selectItem>
                             <f:selectItems value="#{enumController.taskStatuses}"
                                            var="taskStatuses"
-                                           itemValue="#{taskStatuses}"/>
+                                           itemValue="#{taskStatuses}"
+                                           itemLabel="#{taskStatuses.label}"/>
                         </p:selectOneMenu>
                         <p:outputLabel value="#{bundle.CreateTaskLabel_completePercent}" for="completePercent" />
                         <p:inputText id="completePercent" value="#{taskController.selected.completePercent}" title="#{bundle.CreateTaskTitle_completePercent}" />

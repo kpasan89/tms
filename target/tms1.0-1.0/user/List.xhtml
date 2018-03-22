@@ -31,7 +31,7 @@
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListUserTitle_rank}"/>
                             </f:facet>
-                            <h:outputText value="#{item.rank}"/>
+                            <h:outputText value="#{item.rank.label}"/>
                         </p:column>
                         
                         <p:column>
@@ -77,13 +77,13 @@
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListUserTitle_status}"/>
                             </f:facet>
-                            <h:outputText value="#{item.status}"/>
+                            <h:outputText value="#{item.status.label}"/>
                         </p:column>
                         <p:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListUserTitle_accountType}"/>
                             </f:facet>
-                            <h:outputText value="#{item.accountType}"/>
+                            <h:outputText value="#{item.accountType.label}"/>
                         </p:column>
                         <p:column>
                             <f:facet name="header">
