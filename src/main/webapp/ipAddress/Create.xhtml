@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="ipAddressCreateDlg" widgetVar="ipAddressCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateipAddressTitle}">
+            <h:form id="ipAddressCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{ipAddressController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateipAddressLabel_id}" for="id" />
+                        <p:inputText id="id" value="#{ipAddressController.selected.id}" title="#{bundle.CreateipAddressTitle_id}" />
+                        <p:outputLabel value="#{bundle.CreateipAddressLabel_address}" for="address" />
+                        <p:inputText id="address" value="#{ipAddressController.selected.address}" title="#{bundle.CreateipAddressTitle_address}" />
+                        <p:outputLabel value="#{bundle.CreateipAddressLabel_loginTime}" for="loginTime" />
+                        <p:calendar id="loginTime" pattern="MM/dd/yyyy HH:mm:ss" value="#{ipAddressController.selected.loginTime}" title="#{bundle.EditipAddressTitle_loginTime}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.CreateipAddressLabel_loginUser}" for="loginUser" />
+                        <p:inputText id="loginUser" value="#{ipAddressController.selected.loginUser}" title="#{bundle.CreateipAddressTitle_loginUser}" />
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{ipAddressController.create}" value="#{bundle.Save}" update="display,:ipAddressListForm:datalist,:growl" oncomplete="handleSubmit(args,'ipAddressCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="ipAddressCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="ipAddressViewDlg" widgetVar="ipAddressViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewipAddressTitle}">
+            <h:form id="ipAddressViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{ipAddressController.selected != null}">
+                        <h:outputText value="#{bundle.ViewipAddressLabel_id}"/>
+                        <h:outputText value="#{ipAddressController.selected.id}" title="#{bundle.ViewipAddressTitle_id}"/>
+                        <h:outputText value="#{bundle.ViewipAddressLabel_address}"/>
+                        <h:outputText value="#{ipAddressController.selected.address}" title="#{bundle.ViewipAddressTitle_address}"/>
+                        <h:outputText value="#{bundle.ViewipAddressLabel_loginTime}"/>
+                        <h:outputText value="#{ipAddressController.selected.loginTime}" title="#{bundle.ViewipAddressTitle_loginTime}">
+                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewipAddressLabel_loginUser}"/>
+                        <h:outputText value="#{ipAddressController.selected.loginUser}" title="#{bundle.ViewipAddressTitle_loginUser}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="ipAddressViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

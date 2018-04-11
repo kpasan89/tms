@@ -6,7 +6,10 @@ com\mycompany\Controller\UserController$UserConverter.class
 com\mycompany\Controller\TaskUserController.class
 com\mycompany\Entity\TaskUser.class
 com\mycompany\Facade\TaskUserFacade.class
+com\mycompany\Controller\ipAddressController$ipAddressControllerConverter.class
 com\mycompany\Facade\UserFacade.class
+com\mycompany\Facade\ipAddressFacade.class
+com\mycompany\Controller\ipAddressController.class
 com\mycompany\Controller\util\JsfUtil.class
 com\mycompany\Controller\TaskController.class
 com\mycompany\Controller\TaskUserController$TaskUserControllerConverter.class
@@ -26,11 +29,13 @@ com\mycompany\Controller\ScheduleView.class
 com\mycompany\Controller\UserController.class
 com\mycompany\Enum\TaskStatus.class
 com\mycompany\Entity\Category_.class
+com\mycompany\Entity\ipAddress_.class
 com\mycompany\Entity\Location_.class
 com\mycompany\Enum\Rank.class
 com\mycompany\Enum\UserStatus.class
 com\mycompany\Controller\CommonController.class
 com\mycompany\Entity\Location.class
+com\mycompany\Entity\ipAddress.class
 com\mycompany\Entity\TaskUser_.class
 com\mycompany\Entity\User.class
 com\mycompany\Facade\CategoryFacade.class
