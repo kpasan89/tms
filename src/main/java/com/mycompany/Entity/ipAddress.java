@@ -30,6 +30,7 @@ public class ipAddress implements Serializable {
     private String loginUser;
 
     public Long getId() {
+        
         return id;
     }
 
