@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="TaskNotesCreateDlg" widgetVar="TaskNotesCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateTaskNotesTitle}">
+            <h:form id="TaskNotesCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{taskNotesController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateTaskNotesLabel_task}" for="task" />
+                        <p:selectOneMenu id="task" value="#{taskNotesController.selected.task}" >
+                            <f:selectItems value="#{taskController.itemsAvailableSelectOne}"
+                                           var="taskItem"
+                                           itemValue="#{taskItem}"
+                                           itemLabel="#{taskItem.name}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.CreateTaskNotesLabel_note}" for="note" />
+                        <p:inputText id="note" value="#{taskNotesController.selected.note}" title="#{bundle.CreateTaskNotesTitle_note}" />
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{taskNotesController.create}" value="#{bundle.Save}" update="display,:TaskNotesListForm:datalist,:growl" oncomplete="handleSubmit(args,'TaskNotesCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="TaskNotesCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

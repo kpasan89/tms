@@ -1,6 +1,7 @@
 package com.mycompany.Entity;
 
 import com.mycompany.Entity.Category;
+import com.mycompany.Entity.TaskNotes;
 import com.mycompany.Entity.User;
 import com.mycompany.Enum.Priority;
 import com.mycompany.Enum.TaskStatus;
@@ -10,7 +11,7 @@ import javax.persistence.metamodel.ListAttribute;
 import javax.persistence.metamodel.SingularAttribute;
 import javax.persistence.metamodel.StaticMetamodel;
 
-@Generated(value="EclipseLink-2.5.2.v20140319-rNA", date="2018-04-11T14:34:51")
+@Generated(value="EclipseLink-2.5.2.v20140319-rNA", date="2018-05-24T09:53:46")
 @StaticMetamodel(Task.class)
 public class Task_ { 
 
@@ -18,6 +19,7 @@ public class Task_ {
     public static volatile SingularAttribute<Task, Date> dueDate;
     public static volatile SingularAttribute<Task, String> name;
     public static volatile SingularAttribute<Task, Integer> completePercent;
+    public static volatile SingularAttribute<Task, TaskNotes> taskNotes;
     public static volatile SingularAttribute<Task, Long> id;
     public static volatile SingularAttribute<Task, Category> category;
     public static volatile SingularAttribute<Task, Priority> priority;

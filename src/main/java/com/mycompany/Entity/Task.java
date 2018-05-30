@@ -46,6 +46,8 @@ public class Task implements Serializable {
     private String remarks;
     @OneToMany
     private List<User> shareTaskList;
+    @ManyToOne
+    private TaskNotes taskNotes;
 
     public Long getId() {
         return id;
@@ -150,6 +152,14 @@ public class Task implements Serializable {
 
     public void setShareTaskList(List<User> shareTaskList) {
         this.shareTaskList = shareTaskList;
+    }
+
+    public TaskNotes getTaskNotes() {
+        return taskNotes;
+    }
+
+    public void setTaskNotes(TaskNotes taskNotes) {
+        this.taskNotes = taskNotes;
     }
     
 }

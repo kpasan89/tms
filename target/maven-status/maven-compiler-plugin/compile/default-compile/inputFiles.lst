@@ -18,10 +18,13 @@ C:\Users\Pasan\Documents\NetBeansProjects\tms1.0\src\main\java\com\mycompany\Fac
 C:\Users\Pasan\Documents\NetBeansProjects\tms1.0\src\main\java\com\mycompany\Controller\EnumController.java
 C:\Users\Pasan\Documents\NetBeansProjects\tms1.0\src\main\java\com\mycompany\Facade\TaskUserFacade.java
 C:\Users\Pasan\Documents\NetBeansProjects\tms1.0\src\main\java\com\mycompany\Controller\LocationController.java
+C:\Users\Pasan\Documents\NetBeansProjects\tms1.0\src\main\java\com\mycompany\Controller\TaskNotesController.java
+C:\Users\Pasan\Documents\NetBeansProjects\tms1.0\src\main\java\com\mycompany\Entity\TaskNotes.java
 C:\Users\Pasan\Documents\NetBeansProjects\tms1.0\src\main\java\com\mycompany\Facade\ipAddressFacade.java
 C:\Users\Pasan\Documents\NetBeansProjects\tms1.0\src\main\java\com\mycompany\Facade\AbstractFacade.java
 C:\Users\Pasan\Documents\NetBeansProjects\tms1.0\src\main\java\com\mycompany\Entity\ipAddress.java
 C:\Users\Pasan\Documents\NetBeansProjects\tms1.0\src\main\java\com\mycompany\Enum\Rank.java
+C:\Users\Pasan\Documents\NetBeansProjects\tms1.0\src\main\java\com\mycompany\Facade\TaskNotesFacade.java
 C:\Users\Pasan\Documents\NetBeansProjects\tms1.0\src\main\java\com\mycompany\Controller\UserController.java
 C:\Users\Pasan\Documents\NetBeansProjects\tms1.0\src\main\java\com\mycompany\Facade\LocationFacade.java
 C:\Users\Pasan\Documents\NetBeansProjects\tms1.0\src\main\java\com\mycompany\Entity\TaskUser.java
