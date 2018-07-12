@@ -11,18 +11,19 @@ import javax.persistence.metamodel.ListAttribute;
 import javax.persistence.metamodel.SingularAttribute;
 import javax.persistence.metamodel.StaticMetamodel;
 
-@Generated(value="EclipseLink-2.5.2.v20140319-rNA", date="2018-05-24T09:53:46")
+@Generated(value="EclipseLink-2.5.2.v20140319-rNA", date="2018-07-12T14:41:22")
 @StaticMetamodel(Task.class)
 public class Task_ { 
 
+    public static volatile SingularAttribute<Task, Boolean> openTask;
     public static volatile ListAttribute<Task, User> shareTaskList;
     public static volatile SingularAttribute<Task, Date> dueDate;
     public static volatile SingularAttribute<Task, String> name;
     public static volatile SingularAttribute<Task, Integer> completePercent;
     public static volatile SingularAttribute<Task, TaskNotes> taskNotes;
     public static volatile SingularAttribute<Task, Long> id;
-    public static volatile SingularAttribute<Task, Category> category;
     public static volatile SingularAttribute<Task, Priority> priority;
+    public static volatile SingularAttribute<Task, Category> category;
     public static volatile SingularAttribute<Task, TaskStatus> taskStatus;
     public static volatile SingularAttribute<Task, Date> startDate;
     public static volatile SingularAttribute<Task, String> remarks;

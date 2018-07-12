@@ -11,57 +11,35 @@
         <p:dialog id="TaskViewDlg" widgetVar="TaskViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewTaskTitle}">
             <h:form id="TaskViewForm">
                 <h:panelGroup id="display">
-                    <p:panelGrid columns="3" rendered="#{taskController.selected != null}">
-                        <p:panelGrid columns="2" rendered="#{taskController.selected != null}">
-                            <h:outputText value="#{bundle.ViewTaskLabel_name}"/>
-                            <h:outputText value="#{taskController.selected.name}" title="#{bundle.ViewTaskTitle_name}"/>
-                            <h:outputText value="#{bundle.ViewTaskLabel_category}"/>
-                            <h:outputText value="#{taskController.selected.category.name}" title="#{bundle.ViewTaskTitle_category}"/>
-                            <h:outputText value="#{bundle.ViewTaskLabel_priority}"/>
-                            <h:outputText value="#{taskController.selected.priority.label}" title="#{bundle.ViewTaskTitle_priority}"/>
-                            <h:outputText value="#{bundle.ViewTaskLabel_taskStatus}"/>
-                            <h:outputText value="#{taskController.selected.taskStatus.label}" title="#{bundle.ViewTaskTitle_taskStatus}"/>
-                            <h:outputText value="#{bundle.ViewTaskLabel_completePercent}"/>
-                            <h:outputText value="#{taskController.selected.completePercent}%" title="#{bundle.ViewTaskTitle_completePercent}"/>
-                            <h:outputText value="#{bundle.ViewTaskLabel_startDate}"/>
-                            <h:outputText value="#{taskController.selected.startDate}" title="#{bundle.ViewTaskTitle_startDate}">
-                                <f:convertDateTime pattern="MM/dd/yyyy" />
+                    <p:panelGrid columns="2" rendered="#{taskController.selected != null}">
+                        <h:outputText value="#{bundle.ViewTaskLabel_name}"/>
+                        <h:outputText value="#{taskController.selected.name}" title="#{bundle.ViewTaskTitle_name}"/>
+                        <h:outputText value="#{bundle.ViewTaskLabel_category}"/>
+                        <h:outputText value="#{taskController.selected.category.name}" title="#{bundle.ViewTaskTitle_category}"/>
+                        <h:outputText value="#{bundle.ViewTaskLabel_priority}"/>
+                        <h:outputText value="#{taskController.selected.priority.label}" title="#{bundle.ViewTaskTitle_priority}"/>
+                        <h:outputText value="#{bundle.ViewTaskLabel_taskStatus}"/>
+                        <h:outputText value="#{taskController.selected.taskStatus.label}" title="#{bundle.ViewTaskTitle_taskStatus}"/>
+                        <h:outputText value="#{bundle.ViewTaskLabel_completePercent}"/>
+                        <h:outputText value="#{taskController.selected.completePercent}%" title="#{bundle.ViewTaskTitle_completePercent}"/>
+                        <h:outputText value="#{bundle.ViewTaskLabel_startDate}"/>
+                        <h:outputText value="#{taskController.selected.startDate}" title="#{bundle.ViewTaskTitle_startDate}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewTaskLabel_dueDate}"/>
+                        <h:outputText value="#{taskController.selected.dueDate}" title="#{bundle.ViewTaskTitle_dueDate}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+                        <h:outputText value="Assigned Users"/>
+                        <ui:repeat value="#{taskController.selected.shareTaskList}" var="shareTask">            
+                            <h:outputText value="#{shareTask.firstName} #{shareTask.lastName}" >
                             </h:outputText>
-                            <h:outputText value="#{bundle.ViewTaskLabel_dueDate}"/>
-                            <h:outputText value="#{taskController.selected.dueDate}" title="#{bundle.ViewTaskTitle_dueDate}">
-                                <f:convertDateTime pattern="MM/dd/yyyy" />
-                            </h:outputText>
-                            <h:outputText value="Assigned Users"/>
-                            <ui:repeat value="#{taskController.selected.shareTaskList}" var="shareTask">            
-                                <h:outputText value="#{shareTask.firstName} #{shareTask.lastName}" >
-                                </h:outputText>
-                                <br></br>
-                            </ui:repeat>
-                            <h:outputText value="#{bundle.ViewTaskLabel_remarks}"/>
-                            <h:outputText value="#{taskController.selected.remarks}" title="#{bundle.ViewTaskTitle_remarks}"/>
-
-                            <p:commandButton value="#{bundle.Close}" onclick="TaskViewDialog.hide()"/>
-                        </p:panelGrid>
-                        <h:panelGroup>
-                            <p:dataTable id="datalist" value="#{taskNotesController.items}" var="item"
-                                         selectionMode="single" selection="#{taskNotesController.selected}"
-                                         rowKey="#{item.id}" style="width: 50%"
-                                         >
-                                <p:column>
-                                    <f:facet name="header">
-                                        <h:outputText value="#{bundle.ListTaskNotesTitle_task}"/>
-                                    </f:facet>
-                                    <h:outputText value="#{item.task.name}"/>
-                                </p:column>
-                                <p:column>
-                                    <f:facet name="header">
-                                        <h:outputText value="#{bundle.ListTaskNotesTitle_note}"/>
-                                    </f:facet>
-                                    <h:outputText value="#{item.note}"/>
-                                </p:column>
-                            </p:dataTable>
-                        </h:panelGroup>
+                            <br></br>
+                        </ui:repeat>
+                        <h:outputText value="#{bundle.ViewTaskLabel_remarks}"/>
+                        <h:outputText value="#{taskController.selected.remarks}" title="#{bundle.ViewTaskTitle_remarks}"/>
                     </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="TaskViewDialog.hide()"/>
                 </h:panelGroup>
             </h:form>
         </p:dialog>

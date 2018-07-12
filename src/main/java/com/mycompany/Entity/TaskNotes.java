@@ -75,5 +75,5 @@ public class TaskNotes implements Serializable {
     public void setNote(String note) {
         this.note = note;
     }
-    
+
 }

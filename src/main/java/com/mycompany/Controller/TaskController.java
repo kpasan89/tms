@@ -3,11 +3,15 @@ package com.mycompany.Controller;
 import com.mycompany.Entity.Task;
 import com.mycompany.Controller.util.JsfUtil;
 import com.mycompany.Controller.util.JsfUtil.PersistAction;
+import com.mycompany.Entity.TaskNotes;
 import com.mycompany.Facade.TaskFacade;
+import com.mycompany.Facade.TaskNotesFacade;
 import com.mycompany.Facade.TaskUserFacade;
 
 import java.io.Serializable;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -28,8 +32,11 @@ public class TaskController implements Serializable {
     private com.mycompany.Facade.TaskFacade ejbFacade;
     private List<Task> items = null;
     private Task selected;
+    private TaskNotes taskNotes;
     @EJB
     private TaskUserFacade taskUserFacade;
+    @EJB
+    private TaskNotesFacade taskNotesFacade;
 
     public TaskController() {
     }
@@ -97,7 +104,7 @@ public class TaskController implements Serializable {
                 JsfUtil.addSuccessMessage(successMessage);
             } catch (EJBException ex) {
                 String msg = "";
-                Throwable cause = ex.getCause(); 
+                Throwable cause = ex.getCause();
                 if (cause != null) {
                     msg = cause.getLocalizedMessage();
                 }
@@ -113,6 +120,38 @@ public class TaskController implements Serializable {
         }
     }
 
+    public TaskNotes prepareAddTaskNotesFromTask() {
+        taskNotes = new TaskNotes();
+        taskNotes.setTask(selected);
+        System.out.println("selected = " + selected.getName());
+        System.out.println("tn.getTask = " + taskNotes.getTask().getName());
+        findTaskNotesFromTasks(getTaskNotes().getTask());
+        System.out.println("---------------------------");
+        return taskNotes;
+    }
+
+    private List<TaskNotes> listTaskNotesFromTasks;
+    
+    public List<TaskNotes> findTaskNotesFromTasks(Task tsk){
+        System.out.println("tsk from prepareAddTaskNotesFromTask() = " + tsk);
+        String jpql;
+        Map m = new HashMap();
+        m.put("a", tsk);
+        jpql = "select t from TaskNotes t Where t.task=:a";
+        listTaskNotesFromTasks = getTaskNotesFacade().findBySQL(jpql, m);
+        System.out.println("listTaskNotesFromTasks = " + listTaskNotesFromTasks);
+        return listTaskNotesFromTasks;
+    }
+
+    public void saveTaskNotesFromTasks(){
+        TaskNotes tn = new TaskNotes();
+        tn = new TaskNotes();
+        tn.setTask(selected);
+        tn.setNote(getTaskNotes().getNote());
+        getTaskNotesFacade().create(tn);
+    }
+    
+    
 //    public void assignUsersToTask() {
 //        TaskUser tu = new TaskUser();
 //        List<User> taskUsers = getSelected().getShareTaskList();
@@ -124,7 +163,6 @@ public class TaskController implements Serializable {
 //            getTaskUserFacade().edit(tu);
 //        }
 //    }
-    
     public Task getTask(java.lang.Long id) {
         return getFacade().find(id);
     }
@@ -151,7 +189,31 @@ public class TaskController implements Serializable {
 
     public void setEjbFacade(com.mycompany.Facade.TaskFacade ejbFacade) {
         this.ejbFacade = ejbFacade;
-    } 
+    }
+
+    public TaskNotes getTaskNotes() {
+        return taskNotes;
+    }
+
+    public void setTaskNotes(TaskNotes taskNotes) {
+        this.taskNotes = taskNotes;
+    }
+
+    public List<TaskNotes> getListTaskNotesFromTasks() {
+        return listTaskNotesFromTasks;
+    }
+
+    public void setListTaskNotesFromTasks(List<TaskNotes> listTaskNotesFromTasks) {
+        this.listTaskNotesFromTasks = listTaskNotesFromTasks;
+    }
+
+    public TaskNotesFacade getTaskNotesFacade() {
+        return taskNotesFacade;
+    }
+
+    public void setTaskNotesFacade(TaskNotesFacade taskNotesFacade) {
+        this.taskNotesFacade = taskNotesFacade;
+    }
 
     @FacesConverter(forClass = Task.class)
     public static class TaskControllerConverter implements Converter {

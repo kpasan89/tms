@@ -48,6 +48,7 @@ public class Task implements Serializable {
     private List<User> shareTaskList;
     @ManyToOne
     private TaskNotes taskNotes;
+    boolean openTask;
 
     public Long getId() {
         return id;

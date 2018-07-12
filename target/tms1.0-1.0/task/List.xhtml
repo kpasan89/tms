@@ -24,12 +24,9 @@
                                  rowsPerPageTemplate="10,20,30,40,50"
                                  >
 
-                        <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
-                        <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
+                        <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton editButton1"/>
+                        <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton editButton1"/>
 
-                        <p:column headerText="Add Note">
-                            <p:rowToggler/>
-                        </p:column>
                         <p:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListTaskTitle_name}"/>
@@ -92,28 +89,14 @@
                             </f:facet>
                             <h:outputText value="#{item.remarks}"/>
                         </p:column>
-                        <p:column exportable="false" headerText="Add Note">
-                            <p:commandButton value="Notes" icon="ui-icon-search" action="/taskNotes/List.xhtml">
-                                <f:setPropertyActionListener value="#{item}" target="#{taskNotesController.task}" ></f:setPropertyActionListener>
-                            </p:commandButton>
-                        </p:column>
                         <f:facet name="footer">
                             <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{taskController.prepareCreate}" update=":TaskCreateForm" oncomplete="PF('TaskCreateDialog').show()"/>
                             <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":TaskViewForm" oncomplete="PF('TaskViewDialog').show()" disabled="#{empty taskController.selected}"/>
                             <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":TaskEditForm" oncomplete="PF('TaskEditDialog').show()" disabled="#{empty taskController.selected}"/>
+                            <p:commandButton id="editButton1"  icon="ui-icon-pencil" value="Add Note" actionListener="#{taskController.prepareAddTaskNotesFromTask()}" update=":TaskNotesEditForm" oncomplete="PF('TaskNotesEditDialog').show()" style="float: right"></p:commandButton>
                             <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{taskController.destroy}" update=":growl,datalist" disabled="#{empty taskController.selected}"/>
+                            
                         </f:facet>
-                        <p:rowExpansion>
-                            <p:panelGrid columns="2">
-                                <p:outputLabel value="Task Name" for="name" />
-                                <p:outputLabel id="name" value="#{item.name}"/>
-                                <p:outputLabel value="Note" for="remarks" />
-                                <p:inputTextarea id="remarks" rows="10" cols="50" autoResize="true" value="#{taskNotesController.selected.note}"/>
-                                <p:commandButton value="Notes" icon="ui-icon-search" action="/taskNotes/List.xhtml">
-                                <f:setPropertyActionListener value="#{item}" target="#{taskNotesController.task}" ></f:setPropertyActionListener>
-                            </p:commandButton>
-                            </p:panelGrid>
-                        </p:rowExpansion>
                     </p:dataTable>
                 </p:panel>
             </h:form>
@@ -121,6 +104,9 @@
             <ui:include src="Create.xhtml"/>
             <ui:include src="Edit.xhtml"/>
             <ui:include src="View.xhtml"/>
+            <ui:include src="CreateTN.xhtml"/>
+            <ui:include src="EditTN.xhtml"/>
+            <ui:include src="ViewTN.xhtml"/>
         </ui:define>
     </ui:composition>
 
