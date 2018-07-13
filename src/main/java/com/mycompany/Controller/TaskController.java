@@ -33,6 +33,7 @@ public class TaskController implements Serializable {
     private List<Task> items = null;
     private Task selected;
     private TaskNotes taskNotes;
+    private TaskNotes selectedTaskNote;
     @EJB
     private TaskUserFacade taskUserFacade;
     @EJB
@@ -145,9 +146,11 @@ public class TaskController implements Serializable {
 
     public void saveTaskNotesFromTasks(){
         TaskNotes tn = new TaskNotes();
-        tn = new TaskNotes();
         tn.setTask(selected);
         tn.setNote(getTaskNotes().getNote());
+        System.out.println("selected = " + selected);
+        System.out.println("tn.getTask() = " + tn.getTask());
+        System.out.println("taskNotes.getNote() = " + getTaskNotes().getNote());
         getTaskNotesFacade().create(tn);
     }
     
@@ -213,6 +216,14 @@ public class TaskController implements Serializable {
 
     public void setTaskNotesFacade(TaskNotesFacade taskNotesFacade) {
         this.taskNotesFacade = taskNotesFacade;
+    }
+
+    public TaskNotes getSelectedTaskNote() {
+        return selectedTaskNote;
+    }
+
+    public void setSelectedTaskNote(TaskNotes selectedTaskNote) {
+        this.selectedTaskNote = selectedTaskNote;
     }
 
     @FacesConverter(forClass = Task.class)
